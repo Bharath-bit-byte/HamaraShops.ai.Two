@@ -1,0 +1,20 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: business-service
+  labels:
+    cloud.googleapis.com/location: us-central1
+spec:
+  template:
+    spec:
+      containers:
+        - image: us-central1-docker.pkg.dev/hamarashops-ai/services/business-service:latest
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "cloud"
+            - name: EUREKA_CLIENT_ENABLED
+              value: "false"
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 1000m
