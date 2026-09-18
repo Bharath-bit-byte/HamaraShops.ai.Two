@@ -43,7 +43,7 @@
 |      +--------------------------------------------------------------------+       |
 |      |                    Spring Cloud API Gateway                        |       |
 |      |        URL: https://api-gateway-27562154208.asia-south1.run.app   |       |
-|      |       CORS Validation | Path Predicate Matching | StripPrefix      |       |
+|      |       CORS Validation | Path Predicate Matching | Direct HTTP      |       |
 |      +-----+----------------------------+---------------------------+-----+       |
 +------------|----------------------------|---------------------------|-------------+
              |                            |                           |
@@ -62,9 +62,9 @@
 ## ✨ Key Architectural Highlights
 
 - **Single Public Ingress**: All client traffic passes through the Spring Cloud API Gateway, masking internal microservice topographies.
-- **Dual-Profile Runtime Adaptability**:
-  - `SPRING_PROFILES_ACTIVE=local`: Integrates with Netflix Eureka Server for service registration and dynamic discovery (`lb://SERVICE-NAME`).
-  - `SPRING_PROFILES_ACTIVE=cloud`: Disables Eureka overhead (`eureka.client.enabled=false`) and leverages Google Cloud Run native load balancers with direct HTTPS URI forwarding.
+- **Direct HTTP Architecture**:
+  - `Local Development`: High-throughput direct HTTP routing from the API Gateway (`:8080`) to downstream microservices (`:8081`, `:8082`, `:8083`).
+  - `Cloud Run Production`: Directly leverages Google Cloud Run native ingress with environment-variable driven service URLs (`CONTENT_SERVICE_URL`, `BUSINESS_SERVICE_URL`, `CONTACT_SERVICE_URL`).
 - **Reactive CORS WebFilter**: Global cross-origin configuration managing preflight `OPTIONS` requests, custom allowed origins, and header policies.
 - **Modern React 19 Client**: High-speed frontend built with Vite 5.4, Tailwind CSS, Lucide icons, Framer Motion animations, and GPU-accelerated WebGL hero canvas shaders.
 - **Centralized Axios Interceptors**: Unified HTTP client with automatic response unwrapping and global error telemetry handling.
@@ -80,7 +80,6 @@ HamaraShops-Ai/
 ├── business-service/       # Industries & Careers Microservice (Port 8082)
 ├── contact-service/        # Lead Inquiries & Tracking Microservice (Port 8083)
 ├── content-service/        # AI Products, Solutions & Services Microservice (Port 8081)
-├── eureka-cloud-server/    # Netflix Eureka Discovery Server (Port 8761 - Local Profile)
 └── frontend/               # React 19 + Vite Single Page Application (Port 5173 / Port 80)
 ```
 
@@ -91,7 +90,7 @@ HamaraShops-Ai/
 ### Backend Stack
 - **Java**: JDK 21 (Eclipse Temurin)
 - **Framework**: Spring Boot `4.1.0`
-- **Cloud Infrastructure**: Spring Cloud `2025.1.2` (Gateway WebFlux, Eureka Client, LoadBalancer, Actuator)
+- **Cloud Infrastructure**: Spring Cloud `2025.1.2` (Gateway WebFlux, LoadBalancer, Actuator)
 - **Build Tool**: Apache Maven `3.9.9`
 
 ### Frontend Stack
@@ -132,31 +131,25 @@ git clone https://github.com/YOUR_GITHUB_USERNAME/HamaraShops-Ai.git
 cd HamaraShops-Ai
 ```
 
-### 2. Start Eureka Discovery Server (Optional for Local Profile)
+### 2. Start Backend Microservices (Exact Order)
+Open separate terminal tabs for each service (or start in Spring Tool Suite):
 ```bash
-cd eureka-cloud-server
-mvn spring-boot:run
-```
-*Eureka Dashboard runs at `http://localhost:8761`*
-
-### 3. Start Backend Microservices
-Open separate terminal tabs for each service:
-```bash
-# Content Service (Port 8081)
+# 1. Content Service (Port 8081)
 cd content-service && mvn spring-boot:run
 
-# Business Service (Port 8082)
+# 2. Business Service (Port 8082)
 cd business-service && mvn spring-boot:run
 
-# Contact Service (Port 8083)
+# 3. Contact Service (Port 8083)
 cd contact-service && mvn spring-boot:run
 
-# API Gateway (Port 8080)
+# 4. API Gateway (Port 8080)
 cd api-gateway && mvn spring-boot:run
 ```
 
-### 4. Start React Frontend
+### 3. Start React Frontend
 ```bash
+# 5. Frontend (Port 5173)
 cd frontend
 npm install
 npm run dev
@@ -200,4 +193,4 @@ gcloud run deploy api-gateway \
 
 Distributed under the **MIT License**. See `LICENSE` for details.
 
-Developed with ❤️ by **Sadam Bharath (Full Stack Java Developer)**.
+Developed with ❤️ by **Gorantla Charan Ranga (Full Stack Java Developer)**.
