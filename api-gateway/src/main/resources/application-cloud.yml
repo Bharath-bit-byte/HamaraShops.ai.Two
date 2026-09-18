@@ -1,15 +1,6 @@
-eureka:
-  client:
-    enabled: false
-    register-with-eureka: false
-    fetch-registry: false
-
 spring:
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: false
       routes:
         # Route 1: Content Service
         - id: content-service-routes
