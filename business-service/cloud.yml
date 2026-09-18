@@ -12,8 +12,6 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: "cloud"
-            - name: EUREKA_CLIENT_ENABLED
-              value: "false"
           resources:
             limits:
               memory: 512Mi
