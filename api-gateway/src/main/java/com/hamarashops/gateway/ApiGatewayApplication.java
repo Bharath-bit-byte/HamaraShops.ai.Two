@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 @SpringBootApplication
 public class ApiGatewayApplication {
 
-    @Value("${CONTENT_SERVICE_URL:lb://CONTENT-SERVICE}")
+    @Value("${CONTENT_SERVICE_URL:http://localhost:8081}")
     private String contentServiceUrl;
 
-    @Value("${BUSINESS_SERVICE_URL:lb://BUSINESS-SERVICE}")
+    @Value("${BUSINESS_SERVICE_URL:http://localhost:8082}")
     private String businessServiceUrl;
 
-    @Value("${CONTACT_SERVICE_URL:lb://CONTACT-SERVICE}")
+    @Value("${CONTACT_SERVICE_URL:http://localhost:8083}")
     private String contactServiceUrl;
 
     @Value("${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://localhost:5174,http://127.0.0.1:5173,http://127.0.0.1:5174,http://localhost:3000,https://frontend-27562154208.asia-south1.run.app,https://hamarashops.com,https://www.hamarashops.com}")
