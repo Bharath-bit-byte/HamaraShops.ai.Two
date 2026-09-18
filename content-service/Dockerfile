@@ -10,7 +10,6 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 ENV PORT=8080
-ENV EUREKA_CLIENT_ENABLED=false
 COPY --from=builder /app/target/content-service-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
