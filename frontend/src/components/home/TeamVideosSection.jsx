@@ -32,7 +32,7 @@ const teamVideos = [
     title: 'Frontend & UI/UX Journey',
     description: 'Sharing the frontend development and UI/UX experience.',
     videoUrl: 'https://www.youtube.com/embed/zms_htzRvOE',
-    linkedinUrl: 'https://www.linkedin.com/in/priya-reddy/',
+    linkedinUrl: 'https://www.linkedin.com/in/akhil-sunamudi-b417aa426/',
     glowColor: '#ff6b6b'
   },
   {
@@ -45,16 +45,7 @@ const teamVideos = [
     linkedinUrl: 'https://www.linkedin.com/in/madhikuntla-bhavani-7943ab1b0/',
     glowColor: '#4cd6ff'
   },
-  {
-    id: 'team-video-5',
-    name: 'Sainikhilesh',
-    role: 'Cloud & Deployment Engineer',
-    title: 'Cloud Deployment Journey',
-    description: 'Sharing the deployment and Google Cloud experience.',
-    videoUrl: 'https://www.youtube.com/embed/Mv4hUBVviIY',
-    linkedinUrl: 'https://www.linkedin.com/in/sainikhilesh-vangapally-914287411/',
-    glowColor: '#4cd6ff'
-  }
+
 ];
 
 export default function TeamVideosSection() {
