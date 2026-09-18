@@ -1,31 +1,25 @@
 # HamaraShops API Gateway (`api-gateway`)
 
 ## 1. Overview
-The **API Gateway** is the single public entry point for the **HamaraShops.ai** microservices architecture. It handles request routing, centralized Cross-Origin Resource Sharing (CORS), security headers, and service discovery integration.
+The **API Gateway** is the single public entry point for the **HamaraShops.ai** microservices architecture. It handles request routing, centralized Cross-Origin Resource Sharing (CORS), security headers, and direct HTTP forwarding to downstream microservices.
 
 - **Java Version:** Java 21 (Eclipse Temurin)
 - **Spring Boot Version:** 4.1.0
 - **Spring Cloud Version:** 2025.1.2
 - **Default Local Port:** `8080` (Cloud Run dynamically binds to `${PORT}`)
 
-> [!NOTE]
-> **Eureka is used ONLY for local development service discovery and testing.** Eureka is NOT deployed to Google Cloud Run in production.
-
 ---
 
-## 2. Profiles & Routing Architecture
+## 2. Routing Architecture
 
 ### Local Profile (`spring.profiles.active=local`)
-- **Eureka Server:** `http://localhost:8761/eureka/`
-- **Registration Name:** `api-gateway`
-- **Routing Engine:** Spring Cloud Gateway + Spring Cloud LoadBalancer (`lb://`)
+- **Routing Engine:** Spring Cloud Gateway Direct HTTP Routing
 - **Routes:**
-  - Content Suite (`/api/v1/products/**`, `/api/v1/solutions/**`, `/api/v1/services/**`, `/api/v1/insights/**`, `/api/v1/company/**`, `/api/v1/partners/**`, `/api/v1/search/**`) $\rightarrow$ `lb://CONTENT-SERVICE`
-  - Business Suite (`/api/v1/industries/**`, `/api/v1/case-studies/**`, `/api/v1/careers/**`) $\rightarrow$ `lb://BUSINESS-SERVICE`
-  - Contact Inquiries (`/api/v1/contact/**`) $\rightarrow$ `lb://CONTACT-SERVICE`
+  - Content Suite (`/api/v1/products/**`, `/api/v1/solutions/**`, `/api/v1/services/**`, `/api/v1/insights/**`, `/api/v1/company/**`, `/api/v1/partners/**`, `/api/v1/search/**`, `/api/v1/case-studies/**`, `/api/v1/testimonials/**`, `/api/v1/integrations/**`, `/api/v1/metrics/**`) $\rightarrow$ `http://localhost:8081`
+  - Business Suite (`/api/v1/industries/**`, `/api/v1/careers/**`) $\rightarrow$ `http://localhost:8082`
+  - Contact Inquiries (`/api/v1/contact/**`) $\rightarrow$ `http://localhost:8083`
 
 ### Cloud Profile (`spring.profiles.active=cloud`)
-- **Eureka Server:** Disabled (`eureka.client.enabled=false`)
 - **Routing Engine:** Direct environment-driven Cloud Run URLs
 - **Environment Variables:**
   - `CONTENT_SERVICE_URL`
@@ -37,10 +31,10 @@ The **API Gateway** is the single public entry point for the **HamaraShops.ai** 
 ## 3. Local Development & Commands
 
 ### Prerequisites
-1. Ensure your existing Eureka Server is running at `http://localhost:8761`.
-2. Installed Java 21 and Maven 3.9+.
+1. Installed Java 21 and Maven 3.9+.
+2. Downstream services running on their assigned ports (8081, 8082, 8083).
 
-### Build & Package (Using Installed Maven)
+### Build & Package
 ```bash
 mvn clean package -DskipTests
 ```
@@ -51,9 +45,8 @@ mvn spring-boot:run
 ```
 *(Or specify profile explicitly: `mvn spring-boot:run -Dspring-boot.run.profiles=local`)*
 
-### Verify Health & Eureka Registration
+### Verify Health Check
 - **Actuator Health Check:** `http://localhost:8080/actuator/health` (HTTP 200 `{"status":"UP"}`)
-- **Eureka Dashboard:** `http://localhost:8761` (Verify `API-GATEWAY` is registered)
 
 ---
 
