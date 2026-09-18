@@ -4,10 +4,10 @@ import { Sparkles, Film } from 'lucide-react';
 
 // =========================================================================
 // OFFICIAL HAMARASHOPS.AI COMPANY VIDEO CONFIGURATION
-// YouTube Video ID: StfCYk5l2kI
-// Privacy-enhanced embed: https://www.youtube-nocookie.com/embed/StfCYk5l2kI
+// YouTube Video ID: pxaMqyFmHO0
+// Privacy-enhanced embed: https://www.youtube-nocookie.com/embed/pxaMqyFmHO0
 // =========================================================================
-export const YOUTUBE_VIDEO_ID = 'StfCYk5l2kI';
+export const YOUTUBE_VIDEO_ID = 'pxaMqyFmHO0';
 export const YOUTUBE_EMBED_URL = `https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}`;
 export const YOUTUBE_THUMBNAIL_URL = `https://i.ytimg.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`;
 
