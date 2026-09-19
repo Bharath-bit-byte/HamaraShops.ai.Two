@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Cpu, ShieldCheck, ArrowRight, Linkedin, Twitter, Facebook, Instagram, Mail } from 'lucide-react';
+import { ShieldCheck, ArrowRight, Linkedin, Twitter, Facebook, Instagram, Mail } from 'lucide-react';
+import logo from '../../assets/logo.png';
 
 export default function Footer() {
   return (
@@ -11,8 +12,8 @@ export default function Footer() {
           {/* Brand Summary */}
           <div className="lg:col-span-2 space-y-4">
             <Link to="/" className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#ff6b6b] to-[#ffb3b0] flex items-center justify-center text-[#68000f] font-bold shadow-lg shadow-[#ff6b6b]/20">
-                <Cpu className="w-5 h-5 text-white" />
+              <div className="w-9 h-9 rounded-xl overflow-hidden bg-white flex items-center justify-center shadow-lg shadow-[#ff6b6b]/20">
+                <img src={logo} alt="HamaraShops.ai logo" className="w-full h-full object-cover" />
               </div>
               <span className="font-headline-md font-extrabold text-2xl text-white">
                 HamaraShops<span className="text-[#ff6b6b]">.ai</span>
