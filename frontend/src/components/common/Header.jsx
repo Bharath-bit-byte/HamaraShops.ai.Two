@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
-import { Search, Menu, X, ArrowUpRight, Cpu, ChevronDown } from 'lucide-react';
+import { Search, Menu, X, ArrowUpRight, ChevronDown } from 'lucide-react';
 import SearchModal from './SearchModal';
 import AppointmentModal from './AppointmentModal';
+import logo from '../../assets/logo.png';
 
 const navLinks = [
   { name: 'About', path: '/about' },
@@ -105,9 +106,9 @@ export default function Header() {
             <motion.div
               animate={{ scale: isScrolled ? 0.92 : 1 }}
               transition={{ duration: 0.2 }}
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#ff6b6b] to-[#ffb3b0] flex items-center justify-center text-[#68000f] font-bold shadow-lg shadow-[#ff6b6b]/30 group-hover:scale-105 transition-transform"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden bg-white flex items-center justify-center shadow-lg shadow-[#ff6b6b]/30 group-hover:scale-105 transition-transform"
             >
-              <Cpu className="w-5 h-5 sm:w-6 sm:h-6 text-white stroke-[2.2]" />
+              <img src={logo} alt="HamaraShops.ai logo" className="w-full h-full object-cover" />
             </motion.div>
             <div className="flex flex-col">
               <span className="font-headline-md font-extrabold text-lg sm:text-xl tracking-tight text-white flex items-center gap-1">
